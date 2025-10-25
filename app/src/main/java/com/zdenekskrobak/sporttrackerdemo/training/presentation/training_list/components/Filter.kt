@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.zdenekskrobak.sporttrackerdemo.R
 import com.zdenekskrobak.sporttrackerdemo.training.domain.DataSource
 import com.zdenekskrobak.sporttrackerdemo.ui.theme.Purple40
+import com.zdenekskrobak.sporttrackerdemo.ui.theme.White
 
 @Composable
 fun Filter(
@@ -35,7 +36,7 @@ fun Filter(
         Text(
             stringResource(R.string.filter),
             style = MaterialTheme.typography.headlineSmall,
-            color = Color.White
+            color = White
         )
 
         Row(

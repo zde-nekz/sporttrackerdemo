@@ -4,4 +4,12 @@
     <string name="filter_all">All</string>
     <string name="filter_local">Local</string>
     <string name="filter_remote">Remote</string>
+    <string name="name">Name</string>
+    <string name="place">Place</string>
+    <string name="length">Length</string>
+    <string name="no_data">There are no trainings yet. Add some.</string>
+    <string name="add_training">Add training</string>
+    <string name="edit_training">Edit training</string>
+    <string name="save">Save</string>
+    <string name="back">Back</string>
 </resources>

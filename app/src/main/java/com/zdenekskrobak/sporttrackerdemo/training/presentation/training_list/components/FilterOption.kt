@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.zdenekskrobak.sporttrackerdemo.R
 import com.zdenekskrobak.sporttrackerdemo.training.domain.DataSource
 import com.zdenekskrobak.sporttrackerdemo.ui.theme.PurpleGrey80
+import com.zdenekskrobak.sporttrackerdemo.ui.theme.White
 
 @Composable
 fun FilterOption(
@@ -26,7 +27,7 @@ fun FilterOption(
         modifier = modifier,
         colors = FilterChipDefaults.filterChipColors(
             containerColor = PurpleGrey80,
-            selectedContainerColor = Color.White
+            selectedContainerColor = White
         ),
         label = {
             Text(

@@ -3,18 +3,27 @@ package com.zdenekskrobak.sporttrackerdemo.training.presentation.training_list
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.zdenekskrobak.sporttrackerdemo.R
 import com.zdenekskrobak.sporttrackerdemo.training.domain.DataSource
 import com.zdenekskrobak.sporttrackerdemo.training.domain.Training
 import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_list.components.Filter
+import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_list.components.TrainingsList
 import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_list.model.TrainingListAction
 import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_list.model.TrainingListState
 import org.koin.compose.viewmodel.koinViewModel
@@ -47,7 +56,13 @@ fun TrainingListScreenContent(
     onAction: (TrainingListAction) -> Unit
 ) {
 
-    Scaffold { paddingValues ->
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(onFABClicked = {
+                onAction(TrainingListAction.CreateTraining)
+            })
+        }
+    ) { paddingValues ->
         Box(modifier = Modifier.fillMaxSize()) {
 
             if (state.isLoading) {
@@ -64,10 +79,38 @@ fun TrainingListScreenContent(
                         onAction(TrainingListAction.Filter(source))
                     })
 
+                if (!state.isLoading) {
+                    if (state.trainings.isNotEmpty()) {
+                        TrainingsList(
+                            state = state,
+                            onAction = { action ->
+                                onAction(action)
+                            })
+                    } else {
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(text = stringResource(R.string.no_data))
+                        }
+                    }
+                }
             }
         }
     }
 
+}
+
+@Composable
+fun FloatingActionButton(onFABClicked: () -> Unit) {
+    FloatingActionButton(onClick = {
+        onFABClicked()
+    }) {
+        Icon(
+            imageVector = Icons.Filled.Add,
+            contentDescription = stringResource(R.string.add_training)
+        )
+    }
 }
 
 @Preview
@@ -75,7 +118,8 @@ fun TrainingListScreenContent(
 private fun TrainingListPreview() {
     TrainingListScreenContent(
         state = TrainingListState(
-            localTrainings = listOf(
+            isLoading = false,
+            trainings = listOf(
                 Training(
                     id = "",
                     name = "Run",
@@ -88,7 +132,7 @@ private fun TrainingListPreview() {
                     name = "Swimming",
                     place = "Bazen Podoli",
                     length = "25m",
-                    source = DataSource.DATABASE
+                    source = DataSource.REMOTE
                 )
             )
         ),

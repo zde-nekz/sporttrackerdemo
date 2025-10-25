@@ -5,7 +5,6 @@ import com.zdenekskrobak.sporttrackerdemo.training.domain.Training
 
 data class TrainingListState(
     val isLoading: Boolean = true,
-    val localTrainings: List<Training> = emptyList(),
-    val remoteTrainings: List<Training> = emptyList(),
+    val trainings: List<Training> = emptyList(),
     val filter: DataSource? = null
 )

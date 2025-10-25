@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_detail.TrainingDetailScreen
 import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_list.TrainingListScreen
 import com.zdenekskrobak.sporttrackerdemo.ui.theme.SportTrackerDemoTheme
 
@@ -25,12 +26,20 @@ class MainActivity : ComponentActivity() {
 
                     composable<Route.TrainingList> {
                         TrainingListScreen(
-                            onCreateTrainingClicked = {},
+                            onCreateTrainingClicked = {
+                                navController.navigate(Route.TrainingDetail(null))
+                            },
                             onOpenDetail = { id, source -> }
                         )
                     }
 
-                    composable<Route.TrainingDetail> { }
+                    composable<Route.TrainingDetail> {
+                        TrainingDetailScreen(
+                            id = null,
+                            onNavigateBack = {
+                                navController.popBackStack()
+                            })
+                    }
 
                 }
             }
