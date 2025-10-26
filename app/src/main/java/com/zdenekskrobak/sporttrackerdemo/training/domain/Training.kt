@@ -4,6 +4,7 @@ data class Training(
     val id: String,
     val name: String,
     val place: String,
-    val length: String,
+    val duration: Int,
+    val durationUnit: DurationUnit,
     val source: DataSource
 )

@@ -2,14 +2,21 @@
     <string name="app_name">Sport Tracker Demo</string>
     <string name="filter">Filter trainings</string>
     <string name="filter_all">All</string>
-    <string name="filter_local">Local</string>
-    <string name="filter_remote">Remote</string>
+    <string name="filter_phone">Phone</string>
+    <string name="filter_cloud">Cloud</string>
     <string name="name">Name</string>
     <string name="place">Place</string>
-    <string name="length">Length</string>
+    <string name="duration">Duration</string>
     <string name="no_data">There are no trainings yet. Add some.</string>
     <string name="add_training">Add training</string>
     <string name="edit_training">Edit training</string>
     <string name="save">Save</string>
+    <string name="delete">Delete</string>
     <string name="back">Back</string>
+    <string name="where_save">Where to save?</string>
+    <string name="time_unit">Time unit</string>
+    <string name="time_unit_s">s</string>
+    <string name="time_unit_m">m</string>
+    <string name="time_unit_h">h</string>
+    <string name="error_empty">Field cannot be empty</string>
 </resources>

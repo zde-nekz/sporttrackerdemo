@@ -14,15 +14,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.zdenekskrobak.sporttrackerdemo.R
 import com.zdenekskrobak.sporttrackerdemo.training.domain.DataSource
-import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_detail.model.TrainingDetailAction
+import com.zdenekskrobak.sporttrackerdemo.training.domain.format
 import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_detail.model.TrainingDetailState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SourceDropdown(
     state: TrainingDetailState,
-    onAction: (TrainingDetailAction) -> Unit
+    onSourceChanged: (DataSource) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
     val sources = DataSource.entries
@@ -32,10 +34,10 @@ fun SourceDropdown(
         onExpandedChange = { expanded = !expanded }
     ) {
         TextField(
-            value = state.source.name,
+            value = state.source.format(),
             onValueChange = {},
             readOnly = true,
-            label = { Text("Source") },
+            label = { Text(stringResource(R.string.where_save)) },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
             modifier = Modifier
                 .menuAnchor(MenuAnchorType.PrimaryNotEditable, true)
@@ -47,9 +49,10 @@ fun SourceDropdown(
         ) {
             sources.forEach { source ->
                 DropdownMenuItem(
-                    text = { Text(source.name) },
+                    text = { Text(source.format()) },
+                    enabled = state.id == null,
                     onClick = {
-                        onAction(TrainingDetailAction.OnSourceChanged(source))
+                        onSourceChanged(source)
                         expanded = false
                     }
                 )

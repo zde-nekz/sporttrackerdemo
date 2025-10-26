@@ -24,7 +24,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zdenekskrobak.sporttrackerdemo.R
 import com.zdenekskrobak.sporttrackerdemo.training.domain.DataSource
+import com.zdenekskrobak.sporttrackerdemo.training.domain.DurationUnit
 import com.zdenekskrobak.sporttrackerdemo.training.domain.Training
+import com.zdenekskrobak.sporttrackerdemo.training.domain.format
 import com.zdenekskrobak.sporttrackerdemo.ui.theme.Pink40
 import com.zdenekskrobak.sporttrackerdemo.ui.theme.Purple40
 
@@ -50,11 +52,13 @@ fun ListItem(
                 Text(text = training.name, style = MaterialTheme.typography.headlineMedium)
 
                 Icon(
-                    modifier = Modifier.padding(start = 4.dp).size(12.dp),
-                    imageVector = Icons.Default.Storage.takeIf { training.source == DataSource.DATABASE }
+                    modifier = Modifier
+                        .padding(start = 4.dp)
+                        .size(12.dp),
+                    imageVector = Icons.Default.Storage.takeIf { training.source == DataSource.PHONE }
                         ?: Icons.Default.Cloud,
-                    contentDescription = stringResource(R.string.filter_local.takeIf { training.source == DataSource.DATABASE }
-                        ?: R.string.filter_remote)
+                    contentDescription = stringResource(R.string.filter_phone.takeIf { training.source == DataSource.PHONE }
+                        ?: R.string.filter_cloud)
                 )
             }
 
@@ -69,13 +73,14 @@ fun ListItem(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = Icons.Default.Timer,
-                    contentDescription = stringResource(R.string.length),
+                    contentDescription = stringResource(R.string.duration),
                     tint = Pink40
                 )
-                Text(text = training.length, style = MaterialTheme.typography.bodyMedium)
+                Text(
+                    text = "${training.duration}${training.durationUnit.format()}",
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
-
-
         }
     }
 }
@@ -88,7 +93,8 @@ private fun ListItemPreview() {
             id = "",
             name = "Run",
             place = "Stromovka",
-            length = "12m",
-            source = DataSource.DATABASE
+            duration = 12,
+            durationUnit = DurationUnit.MINUTE,
+            source = DataSource.PHONE
         ), onClicked = {})
 }

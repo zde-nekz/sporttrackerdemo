@@ -3,13 +3,13 @@ package com.zdenekskrobak.sporttrackerdemo.training.presentation.training_list
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.zdenekskrobak.sporttrackerdemo.R
 import com.zdenekskrobak.sporttrackerdemo.training.domain.DataSource
+import com.zdenekskrobak.sporttrackerdemo.training.domain.DurationUnit
 import com.zdenekskrobak.sporttrackerdemo.training.domain.Training
 import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_list.components.Filter
 import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_list.components.TrainingsList
@@ -88,10 +89,13 @@ fun TrainingListScreenContent(
                             })
                     } else {
                         Box(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier.fillMaxSize(),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text(text = stringResource(R.string.no_data))
+                            Text(
+                                text = stringResource(R.string.no_data),
+                                style = MaterialTheme.typography.bodyLarge
+                            )
                         }
                     }
                 }
@@ -119,20 +123,22 @@ private fun TrainingListPreview() {
     TrainingListScreenContent(
         state = TrainingListState(
             isLoading = false,
-            trainings = listOf(
+            localTrainings = listOf(
                 Training(
                     id = "",
                     name = "Run",
                     place = "Stromovka",
-                    length = "12m",
-                    source = DataSource.DATABASE
+                    duration = 12,
+                    durationUnit = DurationUnit.MINUTE,
+                    source = DataSource.PHONE
                 ),
                 Training(
                     id = "",
                     name = "Swimming",
                     place = "Bazen Podoli",
-                    length = "25m",
-                    source = DataSource.REMOTE
+                    duration = 25,
+                    durationUnit = DurationUnit.MINUTE,
+                    source = DataSource.CLOUD
                 )
             )
         ),

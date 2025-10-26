@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -58,21 +57,21 @@ fun Filter(
 
             FilterOption(
                 modifier = Modifier.weight(1f),
-                text = stringResource(R.string.filter_local),
-                source = DataSource.DATABASE,
-                isSelected = selectedSource == DataSource.DATABASE,
+                text = stringResource(R.string.filter_phone),
+                source = DataSource.PHONE,
+                isSelected = selectedSource == DataSource.PHONE,
                 onClicked = {
-                    onSelected(DataSource.DATABASE)
+                    onSelected(DataSource.PHONE)
                 },
             )
 
             FilterOption(
                 modifier = Modifier.weight(1f),
-                text = stringResource(R.string.filter_remote),
-                source = DataSource.REMOTE,
-                isSelected = selectedSource == DataSource.REMOTE,
+                text = stringResource(R.string.filter_cloud),
+                source = DataSource.CLOUD,
+                isSelected = selectedSource == DataSource.CLOUD,
                 onClicked = {
-                    onSelected(DataSource.REMOTE)
+                    onSelected(DataSource.CLOUD)
                 },
             )
 

@@ -6,7 +6,6 @@ import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -47,7 +46,7 @@ fun FilterOption(
 @Composable
 private fun FilterChipPreview() {
     FilterOption(
-        text = stringResource(R.string.filter_local),
+        text = stringResource(R.string.filter_phone),
         isSelected = false
     )
 }
@@ -55,5 +54,5 @@ private fun FilterChipPreview() {
 @Preview
 @Composable
 private fun FilterChipPreviewSelected() {
-    FilterOption(text = stringResource(R.string.filter_local), isSelected = true)
+    FilterOption(text = stringResource(R.string.filter_phone), isSelected = true)
 }
