@@ -9,6 +9,6 @@ fun initKoin(applicationContext: Context) {
     startKoin {
         androidLogger()
         androidContext(applicationContext)
-        modules(databaseModule, appModule)
+        modules(databaseModule, firebaseModule, repositoryModule, viewModelModule)
     }
 }

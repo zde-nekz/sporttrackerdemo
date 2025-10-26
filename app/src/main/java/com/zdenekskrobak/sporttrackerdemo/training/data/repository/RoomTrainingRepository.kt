@@ -8,7 +8,7 @@ import com.zdenekskrobak.sporttrackerdemo.training.domain.TrainingRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class TrainingRepositoryImpl(
+class RoomTrainingRepository(
     private val trainingDao: TrainingDao
 ) : TrainingRepository {
 

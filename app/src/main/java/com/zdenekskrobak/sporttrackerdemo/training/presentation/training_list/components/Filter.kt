@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zdenekskrobak.sporttrackerdemo.R
 import com.zdenekskrobak.sporttrackerdemo.training.domain.DataSource
+import com.zdenekskrobak.sporttrackerdemo.ui.theme.Blue
 import com.zdenekskrobak.sporttrackerdemo.ui.theme.Purple40
 import com.zdenekskrobak.sporttrackerdemo.ui.theme.White
 
@@ -28,7 +29,7 @@ fun Filter(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Purple40)
+            .background(Blue)
             .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

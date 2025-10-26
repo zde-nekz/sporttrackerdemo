@@ -19,4 +19,5 @@
     <string name="time_unit_m">m</string>
     <string name="time_unit_h">h</string>
     <string name="error_empty">Field cannot be empty</string>
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>

@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
                     composable<Route.TrainingList> {
                         TrainingListScreen(
                             onCreateTrainingClicked = {
-                                navController.navigate(Route.TrainingDetail(it.id, null))
+                                navController.navigate(Route.TrainingDetail(null, null))
                             },
                             onOpenDetail = { id, source ->
                                 navController.navigate(Route.TrainingDetail(id, source))

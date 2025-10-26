@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.zdenekskrobak.sporttrackerdemo.R
+import com.zdenekskrobak.sporttrackerdemo.auth.AuthManager
 import com.zdenekskrobak.sporttrackerdemo.training.domain.DataSource
 import com.zdenekskrobak.sporttrackerdemo.training.domain.DurationUnit
 import com.zdenekskrobak.sporttrackerdemo.training.domain.Training
@@ -27,6 +29,7 @@ import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_list.co
 import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_list.components.TrainingsList
 import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_list.model.TrainingListAction
 import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_list.model.TrainingListState
+import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -36,7 +39,13 @@ fun TrainingListScreen(
 ) {
     val viewModel = koinViewModel<TrainingListViewModel>()
 
+    val authManager = koinInject<AuthManager>()
+
     val state by viewModel.state.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        authManager.signInAnonymouslyIfNeeded()
+    }
 
     TrainingListScreenContent(
         state = state,

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "983396735717",
+    "firebase_url": "https://sporttrackerdemo-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "sporttrackerdemo",
+    "storage_bucket": "sporttrackerdemo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983396735717:android:bc10dfe45703db3795520c",
+        "android_client_info": {
+          "package_name": "com.zdenekskrobak.sporttrackerdemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "983396735717-jtpao25nc8sic4jc5h1gn1htr24lnetl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4LjrP2p2t91XiKx1V9twVLi39t5eG2eQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "983396735717-jtpao25nc8sic4jc5h1gn1htr24lnetl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

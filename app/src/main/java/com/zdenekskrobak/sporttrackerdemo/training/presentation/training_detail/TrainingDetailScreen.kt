@@ -35,7 +35,7 @@ import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_detail.
 import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_detail.components.SourceDropdown
 import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_detail.model.TrainingDetailAction
 import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_detail.model.TrainingDetailState
-import com.zdenekskrobak.sporttrackerdemo.ui.theme.Purple40
+import com.zdenekskrobak.sporttrackerdemo.ui.theme.Blue
 import com.zdenekskrobak.sporttrackerdemo.ui.theme.White
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -95,7 +95,7 @@ fun TrainingDetailScreenContent(
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Purple40,
+                    containerColor = Blue,
                     titleContentColor = White,
                     navigationIconContentColor = White
                 )

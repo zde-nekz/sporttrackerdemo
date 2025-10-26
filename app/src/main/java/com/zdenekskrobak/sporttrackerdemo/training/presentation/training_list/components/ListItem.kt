@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cloud
 import androidx.compose.material.icons.filled.Place
+import androidx.compose.material.icons.filled.Smartphone
 import androidx.compose.material.icons.filled.Storage
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.Card
@@ -19,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,6 +29,7 @@ import com.zdenekskrobak.sporttrackerdemo.training.domain.DataSource
 import com.zdenekskrobak.sporttrackerdemo.training.domain.DurationUnit
 import com.zdenekskrobak.sporttrackerdemo.training.domain.Training
 import com.zdenekskrobak.sporttrackerdemo.training.domain.format
+import com.zdenekskrobak.sporttrackerdemo.ui.theme.Cyan
 import com.zdenekskrobak.sporttrackerdemo.ui.theme.Pink40
 import com.zdenekskrobak.sporttrackerdemo.ui.theme.Purple40
 
@@ -51,13 +54,16 @@ fun ListItem(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(text = training.name, style = MaterialTheme.typography.headlineMedium)
 
+                val sourceIsPhone = training.source == DataSource.PHONE
+
                 Icon(
                     modifier = Modifier
                         .padding(start = 4.dp)
-                        .size(12.dp),
-                    imageVector = Icons.Default.Storage.takeIf { training.source == DataSource.PHONE }
+                        .size(16.dp),
+                    imageVector = Icons.Default.Smartphone.takeIf { sourceIsPhone }
                         ?: Icons.Default.Cloud,
-                    contentDescription = stringResource(R.string.filter_phone.takeIf { training.source == DataSource.PHONE }
+                    tint = Color.DarkGray.takeIf { sourceIsPhone } ?: Cyan,
+                    contentDescription = stringResource(R.string.filter_phone.takeIf {sourceIsPhone }
                         ?: R.string.filter_cloud)
                 )
             }

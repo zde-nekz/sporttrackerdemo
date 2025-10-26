@@ -2,9 +2,10 @@ package com.zdenekskrobak.sporttrackerdemo.training.presentation.training_detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zdenekskrobak.sporttrackerdemo.training.data.repository.FirebaseTrainingRepository
+import com.zdenekskrobak.sporttrackerdemo.training.data.repository.RoomTrainingRepository
 import com.zdenekskrobak.sporttrackerdemo.training.domain.DataSource
 import com.zdenekskrobak.sporttrackerdemo.training.domain.Training
-import com.zdenekskrobak.sporttrackerdemo.training.domain.TrainingRepository
 import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_detail.model.TrainingDetailAction
 import com.zdenekskrobak.sporttrackerdemo.training.presentation.training_detail.model.TrainingDetailState
 import kotlinx.coroutines.channels.Channel
@@ -17,7 +18,8 @@ import kotlinx.coroutines.launch
 class TrainingDetailViewModel(
     val id: String?,
     dataSource: DataSource?,
-    val repository: TrainingRepository
+    val roomRepository: RoomTrainingRepository,
+    val firebaseRepository: FirebaseTrainingRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(TrainingDetailState())
@@ -60,20 +62,20 @@ class TrainingDetailViewModel(
     private fun loadTraining(id: String, dataSource: DataSource) {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
-            if (dataSource == DataSource.PHONE) {
-                val training = repository.findById(id)
-                if (training != null) {
-                    _state.update {
-                        it.copy(
-                            isLoading = false,
-                            id = training.id,
-                            name = training.name,
-                            place = training.place,
-                            duration = training.duration.toString(),
-                            durationUnit = training.durationUnit,
-                            source = training.source
-                        )
-                    }
+
+            val training = roomRepository.findById(id).takeIf { dataSource == DataSource.PHONE }
+                ?: firebaseRepository.findById(id)
+            if (training != null) {
+                _state.update {
+                    it.copy(
+                        isLoading = false,
+                        id = training.id,
+                        name = training.name,
+                        place = training.place,
+                        duration = training.duration.toString(),
+                        durationUnit = training.durationUnit,
+                        source = training.source
+                    )
                 }
             }
         }
@@ -98,23 +100,32 @@ class TrainingDetailViewModel(
                 it.copy(isLoading = true)
             }
 
-            repository.upsert(
-                Training(
-                    id = id ?: "",
-                    name = state.name,
-                    place = state.place,
-                    duration = state.duration.toInt(),
-                    durationUnit = state.durationUnit,
-                    source = state.source
-                )
+            val training = Training(
+                id = id ?: "",
+                name = state.name,
+                place = state.place,
+                duration = state.duration.toInt(),
+                durationUnit = state.durationUnit,
+                source = state.source
             )
+
+            if (state.source == DataSource.PHONE) {
+                roomRepository.upsert(training)
+            } else {
+                firebaseRepository.upsert(training)
+            }
+
             _goBackEvent.trySend(Unit)
         }
     }
 
     private fun delete() {
         viewModelScope.launch {
-            repository.deleteById(id!!)
+            if (state.value.source == DataSource.PHONE) {
+                roomRepository.deleteById(id!!)
+            } else {
+                firebaseRepository.deleteById(id!!)
+            }
             _goBackEvent.trySend(Unit)
         }
     }
