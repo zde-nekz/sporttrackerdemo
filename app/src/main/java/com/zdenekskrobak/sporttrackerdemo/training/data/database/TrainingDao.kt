@@ -1,6 +1,8 @@
 package com.zdenekskrobak.sporttrackerdemo.training.data.database
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Query
+import androidx.room.Upsert
 import com.zdenekskrobak.sporttrackerdemo.training.data.dto.TrainingEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -15,9 +17,6 @@ interface TrainingDao {
 
     @Query("SELECT * FROM trainings WHERE id = :id")
     suspend fun findById(id: String): TrainingEntity?
-
-    @Delete
-    suspend fun delete(training: TrainingEntity)
 
     @Query("DELETE FROM trainings WHERE id = :id")
     suspend fun deleteById(id: String)
